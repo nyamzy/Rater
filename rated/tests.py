@@ -25,3 +25,20 @@ class ProfileTestClass(TestCase):
         self.profile.delete_profile()
         details = Profile.objects.all()
         self.assertTrue(len(details) == 0)
+
+
+class ProjectsTestClass(TestCase):
+    def setUp(self):
+        self.new_user = User(first_name = 'John', last_name = 'Doe', username = 'test', email = 'test@gmail.com', password = 'nana')
+        self.new_user.save()
+        self.project = Projects(title = 'Test project', landing_page = 'landing.jpg', description = 'This is a test project', link = 'https://test.com')
+
+    # Testing instance
+    def test_instance(self):
+        self.assertTrue(isinstance(self.project, Projects))
+
+    # Testing the save method
+    def test_save_method(self):
+        self.project.save_project()
+        details = Projects.objects.all()
+        self.assertTrue(len(details) > 0)
