@@ -13,7 +13,9 @@ class Profile(models.Model):
     def save_profile(self):
         self.save()
 
-    # 
+    # Delete method
+    def delete_profile(self):
+        self.delete()
 
 
 class Projects(models.Model):
