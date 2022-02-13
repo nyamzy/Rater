@@ -30,3 +30,7 @@ class Projects(models.Model):
     # Save method
     def save_project(self):
         self.save()
+
+    # Delete method
+    def delete_project(self):
+        self.delete()
