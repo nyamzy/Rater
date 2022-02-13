@@ -23,3 +23,10 @@ class Projects(models.Model):
     landing_page = models.ImageField(upload_to = 'projects/')
     description = models.CharField(max_length=100)
     link = models.URLField(max_length=200)
+
+    def __str__(self):
+        return self.title
+    
+    # Save method
+    def save_project(self):
+        self.save()
