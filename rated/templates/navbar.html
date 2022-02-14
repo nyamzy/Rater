@@ -12,6 +12,18 @@
                 <a href="{% url 'index' %}" class="navbar-brand">Rated</a>
             </div>
         </div>
+
+        <div class="col-sm-4 col-md-4 navbar-right">
+            <form action="{% url 'search_results' %}" class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search Project" name="project">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
     </nav>
 </body>
 </html>
