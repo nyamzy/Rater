@@ -1,3 +1,6 @@
+{% load bootstrap4 %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,12 +8,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Profile</title>
+
+    {% block styles %}
+        {% bootstrap_css %}
+        <link rel="stylesheet" href="{% static 'css/rated.css' %}">
+    {% endblock %}
 </head>
 <body>
     <div class="container">
         <div class="col-md-6">
             <h1 class="text-center">Create Your Profile</h1>
-            <form action="{% url 'create_profile' %}" method="post" enctype="multipart/form-data">
+            <form action="{% url 'create-profile' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 <input type="submit" class="btn btn-primary" value="Create Profile">

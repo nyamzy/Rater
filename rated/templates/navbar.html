@@ -7,14 +7,35 @@
 </head>
 <body>
     <nav class="navbar navbar-dark" style="background-color:darkslategray;">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="{% url 'index' %}" class="navbar-brand">Rated</a>
-            </div>
-        </div>
+        
+        <a href="{% url 'index' %}" class="navbar-brand">Rated</a>
 
-        <div class="col-sm-4 col-md-4 navbar-right">
-            <form action="{% url 'search_results' %}" class="navbar-form" role="search">
+
+        {% if user.is_authenticated %}
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown"> 
+                    <a href="{% url 'index' %}" class="dropdown-item">Home</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'new-project' %}" class="dropdown-item">Post Project</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'create-profile' %}" class="dropdown-item">Create Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'profile' %}" class="dropdown-item">View Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="/accounts/password/change" class="dropdown-item">Change Password</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="/logout" class="dropdown-item">Logout</a>
+                    
+                </div>
+        </li>
+        {% else %}
+            <a href="/accounts/login" class="btn btn-default">Login</a>
+        {% endif %}
+            
+            <form action="{% url 'search_results' %}" class="form-inline" role="search">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search Project" name="project">
                     <div class="input-group-btn">
@@ -22,38 +43,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-
-        <div class="col-sm-6 col-md-6">
-            {% if user.is_authenticated %}
-                <ul>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false">
-                            Account<span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu"> 
-                            <li>
-                                <a href="{% url 'index' %}">Home</a>
-                            </li>
-                            <li>
-                                <a href="{% url 'new-project' %}">Post Project</a>
-                            </li>
-                            <li>
-                                <a href="/accounts/password/change">Change Password</a>
-                            </li>
-                            <li>
-                                <a href="/logout">Logout</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            {% else %}
-                <li>
-                    <a href="/accounts/login" class="btn btn-default">Login</a>
-                </li>
-            {% endif %}
-        </div>
-
-    </nav>
-</body>
-</html>
+        </nav>
+    </body>
+    </html>

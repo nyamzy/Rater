@@ -14,13 +14,13 @@
             {% for project in projects %}
             <div class="card-deck">
                 <div class="card">
-                  <img class="card-img-top" src="{{ project.landing_page.url }}" alt="GitHub Search App">
+                  <img class="card-img-top" src="{{ project.landing_page.url }}" alt="{{ project.title }}">
                   <div class="card-body">
                     <h5 class="card-title">{{ project.title }}</h5>
                     <p class="card-text">{{ project.description }}</p>
                   </div>
                   <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
+                    <button class="btn btn-primary"><a href="{% url 'project' project.id %}" style="color: whitesmoke;">Rate this project</a></button>
                   </div>
                 </div>
             </div>
