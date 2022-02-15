@@ -91,3 +91,13 @@ def create_profile(request):
     else:
         form = CreateProfileForm()
     return render(request, "profile/create_profile.html", {"form": form})
+
+
+@login_required(login_url='/accounts/login/')
+def profile(request):
+    current_user = request.user
+    profile = Profile.objects.filter(user_id = current_user.id).first()
+    project = Projects.objects.filter(user_id = current_user.id)
+
+    return render(request, "profile/profile.html", {"profile": profile, "project": project})
+
