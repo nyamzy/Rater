@@ -2,19 +2,67 @@
 
 {% block content %}
 <div class="container">
+    <h1 class="text-center">Project Details</h1>
+    <div class="row">
+        <h3 class="text-center">{{project.title}}</h3>
+    </div>
+
     <div class="row">
         <img src="{{project.landing_page.url}}" alt="" class="img-fluid">
     </div>
 
     <div class="row">
-        <h1 class="text-center">{{project.title}}</h1>
+        {% autoescape on %}
+        {{ project.description|safe }}
+        {% endautoescape %}
     </div>
 
     <div class="row">
-        <p>{{project.description}}</p>
+        <small class="text-muted">By: {{ project.user.username }}</small>
     </div>
+    <br>
+    <br>
 
-    
+    <!-- Rate Section -->
+    <div class="col-md-4">
+        <h2>Rate This Project</h2>
+        <form action="{% url 'rate' project.id%}" method = "post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="Design">Design</label>
+                <input type="number" class="form-control" name="design" min="0"max="10" value="0">
+            </div>
+            <div class="mb-3">
+                  <label for="Content">Content</label>
+                  <input type="number" class="form-control" name="content" min="0"max="10" value="0">
+            </div>
+            <div class="mb-3">
+                    <label for="Usability">Usability</label>
+                    <input type="number" class="form-control" name="usability" min="0"max="10" value="0">
+            </div>
+            <button class="btn btn-warning btn-sm" type="submit">Submit Rate</button>
+        </form>
+    </div>
+    <br>
+    <br>
 
+    <div class="container-fluid">
+        <h2 class="text-center">Ratings</h2>
+        <div class="card">
+            {% if rating %}
+            {% for rate in rating %}
+                <p>Voter: <strong>{{ rate.user.username }}</strong></p>
+                <p>Content Rate: <strong>{{ rate.content_rating }}</strong></p>
+                <p>Usability Rate: <strong>{{ rate.usability_rating }}</strong></p>
+                <p>Design: Rate: <strong>{{rate.design_rating }}</strong></p>
+                <br>
+                <p>Average Score: <strong>{{ rate.average }}</strong></p>
+            {% endfor %}
+        {% else %}
+            <p>There are no votes yet.</p>
+        {% endif %}
+        </div>
+        
+    </div>
 </div>
 {% endblock %}
