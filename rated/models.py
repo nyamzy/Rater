@@ -44,3 +44,25 @@ class Projects(models.Model):
     def search_project(cls, search_term):
         projects = cls.objects.filter(title__icontains = search_term)
         return projects
+
+class Rating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null = True)
+    project = models.ForeignKey(Projects, on_delete=models.CASCADE, null = True)
+    design_rating = models.IntegerField(default=0, blank = True, null = True)
+    usability_rating = models.IntegerField(default=0, blank = True, null = True)
+    content_rating = models.IntegerField(default=0, blank = True, null = True)
+    average = models.IntegerField(default=0, blank = True, null = True)
+
+    def __str__(self):
+        return self.project
+
+    def save_rate(self):
+        self.save()
+
+    def delete_rate(self):
+        self.delete()
+
+    @classmethod
+    def get_project_rates(cls):
+        return cls.objects.get_or_create()
+          
