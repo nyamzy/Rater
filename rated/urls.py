@@ -7,6 +7,8 @@ urlpatterns = [
     path('', views.index, name = 'index'),
     path('search/', views.search, name='search_results'),
     path('project/<int:project_id>', views.project, name = 'project'),
+    path('new/project/', views.new_project, name = 'new-project'),
+    path('rate/<int:id>', views.rate, name = 'rate'),
 ]
 
 if settings.DEBUG:
