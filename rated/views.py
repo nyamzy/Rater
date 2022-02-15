@@ -1,7 +1,8 @@
 from django.http import Http404
 from django.shortcuts import render, redirect
-from rated.models import Projects, Profile
+from rated.models import Projects, Profile, Rating
 from django.contrib.auth.decorators import login_required
+from .forms import PostProjectForm
 
 # Create your views here.
 def index(request):
@@ -34,3 +35,43 @@ def project(request, project_id):
     except Projects.DoesNotExist:
         raise Http404()
     return render(request, "all-rated/project.html", {"project": project})
+
+@login_required(login_url='/accounts/login/')
+def new_project(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = PostProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            project = form.save(commit = False)
+            project.user = current_user
+            project.save()
+        return redirect('index')
+
+    else:
+        form = PostProjectForm()
+    return render(request, "new_project.html", {"form": form})
+
+
+@login_required(login_url='/accounts/login/')
+def rate(request, id):
+    if request.method == 'POST':
+        project = Projects.objects.get(id = id)
+        current_user = request.user
+        design_rate = request.POST['design']
+        usability_rate = request.POST['usability']
+        content_rate = request.POST['content']
+
+        Rating.objects.create(
+            project = project,
+            user = current_user,
+            design_rating = design_rate,
+            usability_rating = usability_rate,
+            content_rating = content_rate,
+            average = round((float(design_rate) + float(usability_rate) + float(content_rate)) / 3,1)
+        )
+        rating = Rating.objects.filter(project = project)
+
+        return render(request, "all-rated/project.html", {"project":project, "rating": rating})
+    else:
+        project = Projects.objects.get(id = id)
+        return render(request, "all-rated/project.html", {"project": project, "rating": rating})
