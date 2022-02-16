@@ -1,20 +1,9 @@
+{% extends 'profile/base.html' %}
+
 {% load bootstrap4 %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
-
-    {% block styles %}
-        {% bootstrap_css %}
-        <link rel="stylesheet" href="{% static 'css/rated.css' %}">
-    {% endblock %}
-</head>
-<body>
+{% block content %}
     <div class="container-fluid">
         <div class="row">
             <h1 class="text-center">Profile</h1>
@@ -48,5 +37,4 @@
             {% endfor %}
         </div>
     </div>
-</body>
-</html>
+{% endblock %}

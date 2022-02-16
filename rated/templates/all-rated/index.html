@@ -3,13 +3,13 @@
 {% block content %}
 {{block.super}}
 <div class="container">
-    <div class=col-lg-8>
+    <div class="col-lg-8 text-center">
         <div class="jumbotron">
             <h1 class="text-center">Welcome to Rated</h1>
         </div>
     </div>
     
-    <div class="row">
+    
         <div class="col-sm-4 col-md-4 col-lg-4">
             {% for project in projects %}
             <div class="card-deck">
@@ -28,7 +28,7 @@
             <br>
             {% endfor %}
         </div>
-    </div>
+    
     
 </div>
 {% endblock %}
